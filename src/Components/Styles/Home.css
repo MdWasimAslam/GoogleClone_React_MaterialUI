@@ -1,0 +1,49 @@
+
+.GoogleHomeContainer{
+display: flex;
+align-items: center;
+flex-direction: column;
+justify-content: center;
+background-color: #ffffff;
+margin-top:12px;
+}
+.GoogleHomeContainer img{
+    width: 300px;
+}
+
+.GoogleSearchTextField .MuiOutlinedInput-root{
+    border-radius: 40px;
+    width: 80vh;
+   padding-left:10px;
+   padding-right: 20px;
+   height: 7vh;
+   border: 1px solid lightgrey !important;
+}
+.GoogleSearchTextField .MuiOutlinedInput-root:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.searchBtn{
+    margin-top: 18px !important;
+    border: none;
+    color: rgb(37, 37, 37) !important;
+    background-color: #ffffff !important;
+    text-transform: unset !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    box-shadow: none!important;
+    margin-left: 2vw !important;
+}
+.searchBtn:hover{
+    border: 1px solid lightgrey;
+    background-color: rgb(248, 245, 245) !important;
+}
+
+.SearchLang{
+    margin-top: 20px;
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.SearchLang span{
+    color: rgb(6, 6, 128);
+}
