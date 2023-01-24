@@ -9,7 +9,7 @@ import AppsIcon from "@mui/icons-material/Apps";
 export default function Nav() {
   return (
     <Box>
-      <AppBar position="" sx={{backgroundColor:"white",color:"black"}}>
+      <AppBar position="" sx={{backgroundColor:"white",color:"black"}} elevation={0}>
         <Toolbar>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { md: "flex" }, alignItems: "center" }}>
