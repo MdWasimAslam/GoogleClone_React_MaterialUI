@@ -1,0 +1,22 @@
+.result-wrapper {
+  width: 600px;
+  margin-left: 10vw;
+  margin-top: 10px;
+}
+
+.resultNavBtn {
+  margin-left: 20px !important;
+  color: grey !important;
+  border: none !important;
+  background-color: white !important;
+  text-transform: unset !important;
+  box-shadow: none !important;
+}
+
+.resultNavigation {
+  padding-bottom: 5px;
+}
+
+.resultContainer {
+  border-bottom: 1px solid rgb(219, 219, 219);
+}

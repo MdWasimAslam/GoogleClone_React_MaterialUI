@@ -20,6 +20,7 @@ function Home() {
             sx={{
               "& fieldset": { border: "none" },
             }}
+            autoComplete="off"
             className="GoogleSearchTextField"
             id="outlined-basic"
             variant="outlined"
