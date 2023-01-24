@@ -20,3 +20,9 @@
 .resultContainer {
   border-bottom: 1px solid rgb(219, 219, 219);
 }
+
+.AllResult{
+  width: 600px;
+  margin-left: 10vw;
+  margin-top: 10px;
+}

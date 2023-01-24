@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Nav from "./Nav";
 import Container from "@mui/material/Container";
 import { Box, Button, InputAdornment, Typography } from "@mui/material";
@@ -6,8 +6,37 @@ import TextField from "@mui/material/TextField";
 import "./Styles/Home.css";
 import MicIcon from "@mui/icons-material/Mic";
 import Footer from "./Footer";
+import { Navigate, Route, useNavigate } from "react-router-dom";
+import SearchResult from "./SearchResult";
+
+
 
 function Home() {
+    const navigate = useNavigate();
+
+const [searchQuery, setsearchQuery] = useState("")
+
+const handleSearchQuery=(e)=>{
+console.log(e.target.value);
+setsearchQuery(e.target.value)
+}
+
+
+const searchFunc = ()=>{
+  localStorage.clear()
+    googleSearchAPI()
+}
+
+const googleSearchAPI =async ()=>{
+    const data = await fetch(`http://api.serpstack.com/search?access_key=9f8d2fa05baf0f1a306c81f0effe70ad&query=${searchQuery}`)
+    const response =await data.json();
+    console.log(response)
+    localStorage.setItem("savedQuery", JSON.stringify(response));
+    navigate('/search');    
+}
+
+
+
   return (
     <div>
       {/* Nav Bar */}
@@ -21,6 +50,7 @@ function Home() {
               "& fieldset": { border: "none" },
             }}
             autoComplete="off"
+            onChange={handleSearchQuery}
             className="GoogleSearchTextField"
             id="outlined-basic"
             variant="outlined"
@@ -35,7 +65,7 @@ function Home() {
             }}
           />
           <div>
-            <Button className="searchBtn" variant="contained">
+            <Button className="searchBtn" variant="contained" onClick={searchFunc}>
               Google Search
             </Button>
             <Button className="searchBtn" variant="contained">
