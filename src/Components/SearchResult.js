@@ -8,6 +8,9 @@ import "./Styles/SearchResult.css";
 import Footer from "./Footer";
 
 function SearchResult() {
+
+
+  
   const [resultData, setresultData] = useState("");
   useEffect(() => {
     const resp = JSON.parse(localStorage.getItem("savedQuery"));
@@ -51,16 +54,20 @@ const AllResult = ({ organicResultData }) => {
             return (
               <>
                 <div className="organicResult">
+                <a href={value.url} style={{textDecoration:"none",color:"grey"}}>
                 <p> {value.domain}</p>
-                <p style={{color:"#0e0ea4"}} ><b>{value.title}</b></p>
+                <p style={{color:"#1A0DAE"}} ><b>{value.title}</b></p>
                 <p style={{fontSize:"15px",color:"grey"}}>{value.url} </p>
+                </a>
                 
                 </div>
               </>
             );
           })
         ) : (
-          <></>
+          <>
+          
+          </>
         )}
       </div>
     </>

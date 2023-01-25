@@ -23,7 +23,8 @@ setsearchQuery(e.target.value)
 
 const searchFunc = ()=>{
   localStorage.clear()
-    googleSearchAPI()
+      googleSearchAPI()
+    
 }
 
 const googleSearchAPI =async ()=>{

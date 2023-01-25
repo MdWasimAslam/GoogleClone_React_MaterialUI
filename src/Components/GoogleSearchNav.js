@@ -9,9 +9,43 @@ import { Avatar, InputAdornment, TextField } from "@mui/material";
 import MicIcon from "@mui/icons-material/Mic";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AppsIcon from "@mui/icons-material/Apps";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
 
 export default function GoogleSearchNav() {
+  const navigate = useNavigate();
+
+
+
+  const [searchQuery, setsearchQuery] = React.useState("")
+
+const handleSearchQuery=(e)=>{
+console.log(e.target.value);
+setsearchQuery(e.target.value)
+}
+
+
+const searchFunc = ()=>{
+  localStorage.clear()
+    googleSearchAPI()
+}
+
+const googleSearchAPI =async ()=>{
+    const data = await fetch(`http://api.serpstack.com/search?access_key=9f8d2fa05baf0f1a306c81f0effe70ad&query=${searchQuery}&limit=50`)
+    const response =await data.json();
+    console.log(response)
+    localStorage.setItem("savedQuery", JSON.stringify(response));
+    window.location.reload();
+
+}
+
+
+
+
+
+
+
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" className="GSAppBar" elevation={0}>
@@ -28,6 +62,7 @@ export default function GoogleSearchNav() {
             sx={{
               "& fieldset": { border: "none" },
             }}
+            onChange={handleSearchQuery}
             autoComplete="off"
             className="GoogleSearchTextField GSsearchField"
             id="outlined-basic"
@@ -37,11 +72,12 @@ export default function GoogleSearchNav() {
               disableUnderline: true,
               endAdornment: (
                 <InputAdornment position="end">
-                  <MicIcon />
+                  <SearchIcon onclick={searchFunc} />
                 </InputAdornment>
               ),
             }}
           />
+          <button style={{border:"none",backgroundColor:"white",fontSize:"15px",marginLeft:"15px",cursor:"pointer"}} onClick={()=>searchFunc()}>Search</button>
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
