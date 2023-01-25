@@ -10,7 +10,6 @@ import { Navigate, Route, useNavigate } from "react-router-dom";
 import SearchResult from "./SearchResult";
 
 
-
 function Home() {
     const navigate = useNavigate();
 
@@ -28,12 +27,15 @@ const searchFunc = ()=>{
 }
 
 const googleSearchAPI =async ()=>{
-    const data = await fetch(`http://api.serpstack.com/search?access_key=9f8d2fa05baf0f1a306c81f0effe70ad&query=${searchQuery}`)
+    const data = await fetch(`http://api.serpstack.com/search?access_key=9f8d2fa05baf0f1a306c81f0effe70ad&query=${searchQuery}&limit=50`)
     const response =await data.json();
     console.log(response)
     localStorage.setItem("savedQuery", JSON.stringify(response));
     navigate('/search');    
 }
+
+
+
 
 
 

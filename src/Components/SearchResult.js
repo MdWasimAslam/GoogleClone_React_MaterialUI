@@ -5,15 +5,15 @@ import SearchIcon from "@mui/icons-material/Search";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import CropOriginalIcon from "@mui/icons-material/CropOriginal";
 import "./Styles/SearchResult.css";
+import Footer from "./Footer";
 
 function SearchResult() {
-    const [resultData, setresultData] = useState("")
-    useEffect(() => {
-        const resp =JSON.parse(localStorage.getItem("savedQuery"))
-        setresultData(resp)
-    }, [])
-    //create a iifi
-    
+  const [resultData, setresultData] = useState("");
+  useEffect(() => {
+    const resp = JSON.parse(localStorage.getItem("savedQuery"));
+    setresultData(resp);
+  }, []);
+
   return (
     <div>
       <GoogleSearchNav />
@@ -33,24 +33,38 @@ function SearchResult() {
             </Button>
           </div>
 
-          <div className="AllResult">
-            {console.log(resultData.organic_results)}
-            {resultData.organic_results!=undefined? resultData.organic_results.map((value,index)=>{
-                return (
-                    
-                    <>
-                    <p>Title : {value.title}</p>
-                    <p>Domain : {value.domain}</p>
-                    <p>URL :  {value.url}  </p>
-                    <hr></hr>
-                 </>
-                )
-            }):<></>}
-          </div>
+          <AllResult organicResultData={resultData.organic_results} />
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }
+
+const AllResult = ({ organicResultData }) => {
+  return (
+    <>
+      <div className="AllResult">
+        {console.log(organicResultData)}
+        {organicResultData != undefined ? (
+          organicResultData.map((value, index) => {
+            return (
+              <>
+                <div className="organicResult">
+                <p> {value.domain}</p>
+                <p style={{color:"#0e0ea4"}} ><b>{value.title}</b></p>
+                <p style={{fontSize:"15px",color:"grey"}}>{value.url} </p>
+                
+                </div>
+              </>
+            );
+          })
+        ) : (
+          <></>
+        )}
+      </div>
+    </>
+  );
+};
 
 export default SearchResult;

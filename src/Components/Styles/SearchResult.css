@@ -23,6 +23,13 @@
 
 .AllResult{
   width: 600px;
-  margin-left: 10vw;
+  margin-left: 3vw;
   margin-top: 10px;
+}
+
+.organicResult{
+  font-size: 17px;
+  color: dark grey;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 20px;
 }
