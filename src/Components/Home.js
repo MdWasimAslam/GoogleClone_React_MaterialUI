@@ -8,37 +8,35 @@ import MicIcon from "@mui/icons-material/Mic";
 import Footer from "./Footer";
 import { Navigate, Route, useNavigate } from "react-router-dom";
 import SearchResult from "./SearchResult";
-
+import LinearProgress from "@mui/material/LinearProgress";
 
 function Home() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const [searchQuery, setsearchQuery] = useState("")
+  const [searchQuery, setsearchQuery] = useState("");
+  const [loader, setloader] = useState(false);
 
-const handleSearchQuery=(e)=>{
-console.log(e.target.value);
-setsearchQuery(e.target.value)
-}
+  const handleSearchQuery = (e) => {
+    console.log(e.target.value);
+    setsearchQuery(e.target.value);
+  };
 
+  const searchFunc = () => {
+    localStorage.clear();
+    setloader(true);
 
-const searchFunc = ()=>{
-  localStorage.clear()
-      googleSearchAPI()
-    
-}
+    googleSearchAPI();
+  };
 
-const googleSearchAPI =async ()=>{
-    const data = await fetch(`http://api.serpstack.com/search?access_key=9f8d2fa05baf0f1a306c81f0effe70ad&query=${searchQuery}&limit=50`)
-    const response =await data.json();
-    console.log(response)
+  const googleSearchAPI = async () => {
+    const data = await fetch(
+      `http://api.serpstack.com/search?access_key=9f8d2fa05baf0f1a306c81f0effe70ad&query=${searchQuery}&num=${50}`
+    );
+    const response = await data.json();
+    console.log(response);
     localStorage.setItem("savedQuery", JSON.stringify(response));
-    navigate('/search');    
-}
-
-
-
-
-
+    navigate("/search");
+  };
 
   return (
     <div>
@@ -68,7 +66,11 @@ const googleSearchAPI =async ()=>{
             }}
           />
           <div>
-            <Button className="searchBtn" variant="contained" onClick={searchFunc}>
+            <Button
+              className="searchBtn"
+              variant="contained"
+              onClick={searchFunc}
+            >
               Google Search
             </Button>
             <Button className="searchBtn" variant="contained">
@@ -83,6 +85,15 @@ const googleSearchAPI =async ()=>{
             </span>
           </p>
         </Box>
+        {loader ? (
+          <>
+            <Box sx={{ width: "100%", marginTop: "20px" }}>
+              <LinearProgress color="inherit" />
+            </Box>
+          </>
+        ) : (
+          <></>
+        )}
       </Container>
       {/* Footer */}
       <Footer />

@@ -8,9 +8,8 @@ import "./Styles/SearchResult.css";
 import Footer from "./Footer";
 
 function SearchResult() {
+  const [resultTab, setresultTab] = useState("All");
 
-
-  
   const [resultData, setresultData] = useState("");
   useEffect(() => {
     const resp = JSON.parse(localStorage.getItem("savedQuery"));
@@ -23,23 +22,44 @@ function SearchResult() {
       <div className="resultContainer">
         <div className="result-wrapper">
           <div className="resultNavigation">
-            <Button variant="contained" className="resultNavBtn">
+            <Button
+              variant="contained"
+              className="resultNavBtn"
+              onClick={() => {
+                setresultTab("All");
+              }}
+            >
               <SearchIcon />
               &nbsp; All
             </Button>
-            <Button variant="contained" className="resultNavBtn">
-              <OndemandVideoIcon />
-              &nbsp; Video
-            </Button>
-            <Button variant="contained" className="resultNavBtn">
-              <CropOriginalIcon /> &nbsp; Images
+            {/* <Button variant="contained" className="resultNavBtn" onClick={()=>{setresultTab('Images')}} >
+            <CropOriginalIcon /> &nbsp; Images
+            </Button> */}
+            <Button
+              variant="contained"
+              className="resultNavBtn"
+              onClick={() => {
+                setresultTab("RelatedSuggestion");
+              }}
+            >
+              <CropOriginalIcon /> &nbsp; Related Suggestions
             </Button>
           </div>
 
-          <AllResult organicResultData={resultData.organic_results} />
+          {resultTab == "All" ? (
+            <>
+              <AllResult organicResultData={resultData.organic_results} />
+            </>
+          ) : (
+            <>
+              <RelatedQuestionsResult
+                relatedQuestionsResultData={resultData.related_questions}
+              />
+            </>
+          )}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
@@ -54,20 +74,56 @@ const AllResult = ({ organicResultData }) => {
             return (
               <>
                 <div className="organicResult">
-                <a href={value.url} style={{textDecoration:"none",color:"grey"}}>
-                <p> {value.domain}</p>
-                <p style={{color:"#1A0DAE"}} ><b>{value.title}</b></p>
-                <p style={{fontSize:"15px",color:"grey"}}>{value.url} </p>
-                </a>
-                
+                  <a
+                    href={value.url}
+                    style={{ textDecoration: "none", color: "grey" }}
+                  >
+                    <p> {value.domain}</p>
+                    <p style={{ color: "#1A0DAE", fontWeight: "500" }}>
+                      {value.title}
+                    </p>
+                    <p style={{ fontSize: "15px", color: "grey" }}>
+                      {value.url}{" "}
+                    </p>
+                  </a>
                 </div>
               </>
             );
           })
         ) : (
-          <>
-          
-          </>
+          <></>
+        )}
+      </div>
+    </>
+  );
+};
+
+const RelatedQuestionsResult = ({ relatedQuestionsResultData }) => {
+  return (
+    <>
+      <div className="AllResult">
+        {console.log(relatedQuestionsResultData)}
+        {relatedQuestionsResultData != undefined ? (
+          relatedQuestionsResultData.map((value, index) => {
+            return (
+              <>
+                <div className="organicResult">
+                  <p
+                    style={{
+                      fontSize: "15px",
+                      color: "black",
+                      marginTop: "20px",
+                      fontFamily: "Segoe UI",
+                    }}
+                  >
+                    {value.question}{" "}
+                  </p>
+                </div>
+              </>
+            );
+          })
+        ) : (
+          <></>
         )}
       </div>
     </>

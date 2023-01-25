@@ -15,36 +15,27 @@ import SearchIcon from "@mui/icons-material/Search";
 export default function GoogleSearchNav() {
   const navigate = useNavigate();
 
+  const [searchQuery, setsearchQuery] = React.useState("");
 
+  const handleSearchQuery = (e) => {
+    console.log(e.target.value);
+    setsearchQuery(e.target.value);
+  };
 
-  const [searchQuery, setsearchQuery] = React.useState("")
+  const searchFunc = () => {
+    localStorage.clear();
+    googleSearchAPI();
+  };
 
-const handleSearchQuery=(e)=>{
-console.log(e.target.value);
-setsearchQuery(e.target.value)
-}
-
-
-const searchFunc = ()=>{
-  localStorage.clear()
-    googleSearchAPI()
-}
-
-const googleSearchAPI =async ()=>{
-    const data = await fetch(`http://api.serpstack.com/search?access_key=9f8d2fa05baf0f1a306c81f0effe70ad&query=${searchQuery}&limit=50`)
-    const response =await data.json();
-    console.log(response)
+  const googleSearchAPI = async () => {
+    const data = await fetch(
+      `http://api.serpstack.com/search?access_key=9f8d2fa05baf0f1a306c81f0effe70ad&query=${searchQuery}&num=${50}`
+    );
+    const response = await data.json();
+    console.log(response);
     localStorage.setItem("savedQuery", JSON.stringify(response));
     window.location.reload();
-
-}
-
-
-
-
-
-
-
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -77,7 +68,18 @@ const googleSearchAPI =async ()=>{
               ),
             }}
           />
-          <button style={{border:"none",backgroundColor:"white",fontSize:"15px",marginLeft:"15px",cursor:"pointer"}} onClick={()=>searchFunc()}>Search</button>
+          <button
+            style={{
+              border: "none",
+              backgroundColor: "white",
+              fontSize: "15px",
+              marginLeft: "15px",
+              cursor: "pointer",
+            }}
+            onClick={() => searchFunc()}
+          >
+            Search
+          </button>
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
