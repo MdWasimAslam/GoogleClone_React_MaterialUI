@@ -29,9 +29,7 @@ function Home() {
   };
 
   const googleSearchAPI = async () => {
-    const data = await fetch(
-      `http://api.serpstack.com/search?access_key=9f8d2fa05baf0f1a306c81f0effe70ad&query=${searchQuery}&num=${50}`
-    );
+    const data = await fetch(`https://app.zenserp.com/api/v2/search?apikey=14499fa0-a587-11ed-ab73-075df5944978&q=${searchQuery}&num=100`);
     const response = await data.json();
     console.log(response);
     localStorage.setItem("savedQuery", JSON.stringify(response));

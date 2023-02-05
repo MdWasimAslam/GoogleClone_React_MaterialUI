@@ -48,12 +48,12 @@ function SearchResult() {
 
           {resultTab == "All" ? (
             <>
-              <AllResult organicResultData={resultData.organic_results} />
+              <AllResult organicResultData={resultData.organic} />
             </>
           ) : (
             <>
               <RelatedQuestionsResult
-                relatedQuestionsResultData={resultData.related_questions}
+                relatedQuestionsResultData={resultData.related_searches}
               />
             </>
           )}
@@ -78,13 +78,16 @@ const AllResult = ({ organicResultData }) => {
                     href={value.url}
                     style={{ textDecoration: "none", color: "grey" }}
                   >
-                    <p> {value.domain}</p>
+                    <p style={{ fontSize: "15px", color: "black" }}>
+                      {value.url}{" "}
+                    </p>
                     <p style={{ color: "#1A0DAE", fontWeight: "500" }}>
                       {value.title}
                     </p>
                     <p style={{ fontSize: "15px", color: "grey" }}>
-                      {value.url}{" "}
+                      {value.description}{" "}
                     </p>
+                    
                   </a>
                 </div>
               </>
@@ -102,7 +105,7 @@ const RelatedQuestionsResult = ({ relatedQuestionsResultData }) => {
   return (
     <>
       <div className="AllResult">
-        {console.log(relatedQuestionsResultData)}
+        {console.log("Related Searches >>>>>>>>>>>>",relatedQuestionsResultData)}
         {relatedQuestionsResultData != undefined ? (
           relatedQuestionsResultData.map((value, index) => {
             return (
@@ -116,7 +119,19 @@ const RelatedQuestionsResult = ({ relatedQuestionsResultData }) => {
                       fontFamily: "Segoe UI",
                     }}
                   >
-                    {value.question}{" "}
+                    <a
+                    href={value.url}
+                    style={{ textDecoration: "none", color: "grey" }}
+                  >
+                    <p style={{ color: "#1A0DAE", fontWeight: "500" }}>
+                      {value.title}
+                    </p>
+                    <p style={{ fontSize: "15px", color: "black" }}>
+                      {value.url}{" "}
+                    </p>
+  
+                    
+                  </a>
                   </p>
                 </div>
               </>
